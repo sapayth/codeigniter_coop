@@ -1,12 +1,3 @@
-<footer class="main-footer">
-  <?php include("template-parts/footer-copyright.php"); ?>
-</footer>
-  <!-- Control Sidebar -->
-  <?php echo include("template-parts/control-sidebar.php"); ?>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
