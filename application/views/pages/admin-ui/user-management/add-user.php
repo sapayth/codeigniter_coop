@@ -17,20 +17,20 @@
       <div class="box-body">
       	<div class="col-md-8">
            <div class="form-group">
-            <label class="col-sm-1 control-label">Name</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
               <input type="text" name="txtName" class="form-control" placeholder="Name" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">Email</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
               <input type="email" name="txtEmail" class="form-control" placeholder="Email" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">Role</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">Role</label>
+            <div class="col-sm-10">
               <select name="cmbRole" class="form-control">
                 <?php
                   foreach($role_arr as $role) : ?>
@@ -41,14 +41,14 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">Password</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
               <input type="password" name="pwdPass" class="form-control" placeholder="Password" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-1 control-label">Retype Password</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label">Retype Password</label>
+            <div class="col-sm-10">
               <input type="password" name="pwdRePass" class="form-control" placeholder="Retype Password" />
             </div>
           </div>

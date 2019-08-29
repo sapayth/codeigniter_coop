@@ -26,15 +26,30 @@
 								<tbody>
 									<?php
 										$users_rs = $this->db->get('users');
+										// $role_rs = $this->db->get('user_role');
+
 										foreach ($users_rs->result() as $user) :
 										?>
-
-										<tr role="row" class="odd">
-										<td><?php echo $user->name; ?></td>
-										<td><?php echo $user->email; ?></td>
-										<td><?php echo $user->role_id; ?></td>
-										</tr>
-									<?php endforeach; ?>
+											<tr role="row" class="odd">
+												<td><?php echo $user->name; ?></td>
+												<td><?php echo $user->email; ?></td>
+												<td>
+													<?php
+													$role_rs = $this->db->get_where('user_role', array('id' => $user->role_id));
+														// foreach ($role_rs->result() as $role) {
+														// 	if($role->id == $user->role_id) {
+														// 		echo "$role->name";
+														// 	}
+														// }
+													// echo "<pre>";
+													// print_r($role_rs);
+													// echo "</pre>";
+													$role_arr = $role_rs->row_array();
+													echo $role_arr['name'];
+													?>
+												</td>
+											</tr>
+										<?php endforeach; ?>
 								</tbody>
 							</table>
 						</div> <!-- end of col-sm -->
