@@ -63,6 +63,7 @@
 			          <div class="form-group">
 			            <label class="col-sm-2 control-label">Retype Password</label>
 			            <div class="col-sm-10">
+			            <input type="hidden" name="hdnId" value="<?php echo $user_id; ?>" />
 			              <input type="password" name="pwdRePass" class="form-control" placeholder="Retype Password" />
 			            </div>
 			          </div>
@@ -78,7 +79,7 @@
 			      </div> <!-- end of box-body -->
 			      <div class="box-footer">
 			        <?php
-			        	echo form_submit('btnSave', 'Save User', "class='btn btn-info'");
+			        	echo form_submit('btnUpdateUser', 'Update User', "class='btn btn-info'");
 			        ?>
 			      </div>
 			      <!-- /.box-footer -->

@@ -38,46 +38,61 @@ class User extends CI_Controller {
 
 	public function save_user() {
 		$this->load->helper('form');
+		$id = $this->input->post("hdnId");
 		$name = $this->input->post('txtName');
 		$email = $this->input->post('txtEmail');
 		$role_id = $this->input->post('cmbRole');
 		$pass = $this->input->post('pwdPass');
 		$avatar = $name . '_' . time();
 
-		// echo $role_id;
+		if(isset($_POST["btnSave"])) {
+			$config['upload_path']          = './assets/img/avatars';
+	        $config['allowed_types']        = 'gif|jpg|png';
+	        $config['file_name']			= $avatar;
+	        // $config['max_size']             = 100;
+	        // $config['max_width']            = 1024;
+	        // $config['max_height']           = 768;
 
-		$config['upload_path']          = './assets/img/avatars';
-        $config['allowed_types']        = 'gif|jpg|png';
-        $config['file_name']			= $avatar;
-        // $config['max_size']             = 100;
-        // $config['max_width']            = 1024;
-        // $config['max_height']           = 768;
+	        $this->load->library('upload', $config);
 
-        $this->load->library('upload', $config);
+	        if ( ! $this->upload->do_upload('fileUserAvatar')) {
+	            $error = array('error' => $this->upload->display_errors());
+	            $this->load->view('header');
+				$this->load->view('template-parts/header-admin');
+				$this->load->view('template-parts/sidebar-left-admin');
+				$this->load->view('pages/admin-ui/user-management/view-user', $error);
+				$this->load->view('footer-copyright');
+				$this->load->view('template-parts/sidebar-control-admin');
+				$this->load->view('footer');
+	        } else {
+	            $data = array('upload_data' => $this->upload->data());
+	            $user = array(
+					'name' => $name,
+					'email' => $email,
+					'role_id' => $role_id,
+					'password' => $pass,
+					'avatar_name' => $avatar
+				);
+				$this->db->insert('users', $user);
+				redirect('user/view_user');
+	    	}
+		}
+		
+		if(isset($_POST["btnUpdateUser"])) {
+			$id = $this->input->post('hdnId');
 
-        if ( ! $this->upload->do_upload('fileUserAvatar')) {
-            $error = array('error' => $this->upload->display_errors());
-            $this->load->view('header');
-			$this->load->view('template-parts/header-admin');
-			$this->load->view('template-parts/sidebar-left-admin');
-			$this->load->view('pages/admin-ui/user-management/view-user', $error);
-			$this->load->view('footer-copyright');
-			$this->load->view('template-parts/sidebar-control-admin');
-			$this->load->view('footer');
-        } else {
-            $data = array('upload_data' => $this->upload->data());
-            $user = array(
+			$updated_user = array(
 				'name' => $name,
 				'email' => $email,
 				'role_id' => $role_id,
 				'password' => $pass,
 				'avatar_name' => $avatar
 			);
-			$this->db->insert('users', $user);
+			$this->db->where('id', $id);
+			$this->db->update('users', $updated_user);
 
 			redirect('user/view_user');
-    	}
-		
+		}
 	}
 
 	public function edit_user() {
@@ -122,7 +137,6 @@ class User extends CI_Controller {
 
 		} else {
 			$this->db->delete('users', array('id' => $id));
-
 			redirect("user/edit_user");
 		}
 	}

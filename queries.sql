@@ -33,19 +33,19 @@ create table suppliers(
 insert into suppliers(name, contact_no, email, address, comments) values('Ajij Co', '01715323654', 'ajij.com@gmail.com', 'Badda, Dhaka', 'Perfume');
 insert into suppliers(name, contact_no, email, address, comments) values('Moon International', '01714545451', 'moon.international@gmail.com', 'Shantinagar, Dhaka', 'They supply Industrial Parts');
 
-drop table if exists product_category;
-create table product_category(
+drop table if exists item_category;
+create table item_category(
 	id int(10) primary key auto_increment,
 	name varchar(50)
 );
-insert into product_category(name) values('Frozen Food');
-insert into product_category(name) values('Drinks');
-insert into product_category(name) values('Vegitables');
-insert into product_category(name) values('Fruits');
-insert into product_category(name) values('Fish');
-insert into product_category(name) values('Meat');
-insert into product_category(name) values('Perfume');
-insert into product_category(name) values('Cooking Essentials');
+insert into item_category(name) values('Frozen Food');
+insert into item_category(name) values('Drinks');
+insert into item_category(name) values('Vegitables');
+insert into item_category(name) values('Fruits');
+insert into item_category(name) values('Fish');
+insert into item_category(name) values('Meat');
+insert into item_category(name) values('Perfume');
+insert into item_category(name) values('Cooking Essentials');
 
 drop table if exists brands;
 create table brands(
@@ -89,5 +89,52 @@ create table products(
 );
 insert into products(code, sku, name, brand_id, supplier_id, category_id, net_weight, sales_price, purchase_cost, stock_level, uom_id) values('rand-code', 'rand-sku-ZZ11', 'Pran Chilli Powder (Jar)', 6, 1, 8, 250, 90, 85, 50, 3);
 insert into products(code, sku, name, brand_id, supplier_id, category_id, net_weight, sales_price, purchase_cost, stock_level, uom_id) values('rand-code', 'rand-sku-ZZ00', 'ACI Pure Halim Mix', 6, 1, 8, 200, 45, 35, 50, 3);
+
+drop table if exists transaction_type;
+create table transaction_type(
+	id int(10) primary key auto_increment,
+	name varchar(30)
+);
+insert into transaction_type(name) values("Purchase");
+insert into transaction_type(name) values("Stock Adjustment");
+
+drop table if exists stock_transaction_master;
+create table stock_transaction_master(
+	id int(10) primary key auto_increment,
+	transaction_type_id int(10),
+	transaction_date datetime default current_timestamp,
+	doc_reference varchar(20) unique,
+	note text,
+	created_by_id int(100)
+);
+insert into stock_transaction_master(transaction_type_id, doc_reference, note) values(1, '101', 'initial voucher 1');
+insert into stock_transaction_master(transaction_type_id, doc_reference, note) values(1, '102', 'initial voucher 2');
+insert into stock_transaction_master(transaction_type_id, doc_reference, note) values(1, '103', 'initial voucher 3');
+
+drop table if exists stock_transaction_details;
+create table stock_transaction_details(
+	id int(10) primary key auto_increment,
+	item_id int(10),
+	qty int(10),
+	uom_id int(10),
+	price float,
+	purchase_date datetime default current_timestamp,
+	stock_transaction_id int(10)
+);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(1, 10, 1, 500, 1);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(2, 15, 1, 150, 1);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(3, 18, 1, 220, 1);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(4, 9, 1, 215, 1);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(5, 30, 1, 90, 1);
+
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(2, 10, 1, 500, 2);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(3, 15, 1, 150, 2);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(1, 18, 1, 220, 2);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(5, 9, 1, 215, 2);
+
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(5, 10, 1, 500, 3);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(4, 15, 1, 150, 3);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(1, 18, 1, 220, 3);
+insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(2, 9, 1, 215, 3);	
 
 select p.name 'Product name', b.name 'brand', c.name 'category', s.name 'supplier', u.name 'uom' from products p, brands b, product_category c, suppliers s, uom u where p.brand_id = b.id and p.supplier_id = s.id and p.category_id = c.id and p.uom_id = u.id;
