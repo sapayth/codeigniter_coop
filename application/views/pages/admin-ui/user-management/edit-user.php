@@ -38,20 +38,16 @@
 												<td>
 													<?php
 													$role_rs = $this->db->get_where('user_role', array('id' => $user->role_id));
-														// foreach ($role_rs->result() as $role) {
-														// 	if($role->id == $user->role_id) {
-														// 		echo "$role->name";
-														// 	}
-														// }
-													// echo "<pre>";
-													// print_r($role_rs);
-													// echo "</pre>";
 													$role_arr = $role_rs->row_array();
 													echo $role_arr['name'];
 													?>
 												</td>
 												<td>
 													<input type="hidden" name="hdnId" value="<?php echo $user->id; ?>" />
+													<input type="hidden" name="hdnName" value="<?php echo $user->name; ?>" />
+													<input type="hidden" name="hdnEmail" value="<?php echo $user->email; ?>" />
+													<input type="hidden" name="hdnRole" value="<?php echo $user->role_id; ?>" />
+													<input type="hidden" name="hdnAvatar" value="<?php echo $user->avatar_name; ?>" />
 													<button type="submit" name="btnEdit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
 													<button type="submit" name="btnDelete" class="btn btn-danger" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i> Delete</button>
 												</td>

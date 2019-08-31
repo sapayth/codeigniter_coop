@@ -78,14 +78,6 @@ class User extends CI_Controller {
 			redirect('user/view_user');
     	}
 		
-		
-		// $this->load->view('header');
-		// $this->load->view('template-parts/header-admin');
-		// $this->load->view('template-parts/sidebar-left-admin');
-		// $this->load->view('pages/admin-ui/user-management/view-user');
-		// $this->load->view('footer-copyright');
-		// $this->load->view('template-parts/sidebar-control-admin');
-		// $this->load->view('footer');
 	}
 
 	public function edit_user() {
@@ -101,12 +93,34 @@ class User extends CI_Controller {
 	}
 
 	public function manage_user() {
-		if(isset($_POST['btnEdit'])) {
-			redirect("user/edit_single_user");
-		}
+		$id = $this->input->post('hdnId');
+		// get roles from database
+		$role_rs = $this->db->query("SELECT id, name FROM user_role;");
 
-		if(isset($_POST['btnDelete'])) {
-			$id = $this->input->post('hdnId');
+		if(isset($_POST['btnEdit'])) {
+			$name = $this->input->post('hdnName');
+			$email = $this->input->post('hdnEmail');
+			$role = $this->input->post('hdnRole');
+			$avatar = $this->input->post('hdnAvatar');
+
+			$data['user_id'] = $id;
+			$data['name'] = $name;
+			$data['email'] = $email;
+			$data['role'] = $role;
+			$data['avatar'] = $avatar;
+			$data['role_arr'] = $role_rs->result_array();
+
+			$this->load->helper('form');
+
+			$this->load->view('header');
+			$this->load->view('template-parts/header-admin');
+			$this->load->view('template-parts/sidebar-left-admin');
+			$this->load->view('pages/admin-ui/user-management/edit-single-user', $data);
+			$this->load->view('footer-copyright');
+			$this->load->view('template-parts/sidebar-control-admin');
+			$this->load->view('footer');
+
+		} else {
 			$this->db->delete('users', array('id' => $id));
 
 			redirect("user/edit_user");
@@ -115,6 +129,7 @@ class User extends CI_Controller {
 
 	public function edit_single_user() {
 		$this->load->helper('form');
+		// $data = array('user_id' => $id);
 
 		$this->load->view('header');
 		$this->load->view('template-parts/header-admin');

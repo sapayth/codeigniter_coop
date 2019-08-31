@@ -22,22 +22,33 @@
 			           <div class="form-group">
 			            <label class="col-sm-2 control-label">Name</label>
 			            <div class="col-sm-10">
-			              <input type="text" name="txtName" class="form-control" placeholder="Name" />
+			              <input type="text" name="txtName" class="form-control" value="<?php echo $name; ?>" />
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <label class="col-sm-2 control-label">Email</label>
 			            <div class="col-sm-10">
-			              <input type="email" name="txtEmail" class="form-control" placeholder="Email" />
+			              <input type="email" name="txtEmail" class="form-control" value="<?php echo $email; ?>" />
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <label class="col-sm-2 control-label">Role</label>
+			            <?php
+
+			            // echo "<pre>";
+			            // print_r($role_arr);
+			            // echo "</pre>";
+
+			            ?>
 			            <div class="col-sm-10">
 			              <select name="cmbRole" class="form-control">
 			                <?php
-			                  foreach($role_arr as $role) : ?>
-			                    <option value="<?php echo $role['id']; ?>"><?php echo $role['name']; ?></option>
+			                  foreach($role_arr as $srole) : ?>
+			                  	<?php if($srole['id'] == $role) : ?>
+			                  		<option value="<?php echo $srole['id'] ?>" selected="selected"><?php echo $srole['name']; ?></option>
+			                    <?php else : ?>
+			                    	<option value="<?php echo $srole['id'] ?>"><?php echo $srole['name']; ?></option>
+			                    <?php endif; ?>
 			                  }
 			                <?php endforeach; ?>
 			              </select>
