@@ -43,12 +43,12 @@ class User extends CI_Controller {
 		$email = $this->input->post('txtEmail');
 		$role_id = $this->input->post('cmbRole');
 		$pass = $this->input->post('pwdPass');
-		$avatar = $name . '_' . time();
 
 		if(isset($_POST["btnSave"])) {
 			$config['upload_path']          = './assets/img/avatars';
 	        $config['allowed_types']        = 'gif|jpg|png';
 	        $config['file_name']			= $avatar;
+
 	        // $config['max_size']             = 100;
 	        // $config['max_width']            = 1024;
 	        // $config['max_height']           = 768;
@@ -60,12 +60,13 @@ class User extends CI_Controller {
 	            $this->load->view('header');
 				$this->load->view('template-parts/header-admin');
 				$this->load->view('template-parts/sidebar-left-admin');
-				$this->load->view('pages/admin-ui/user-management/view-user', $error);
+				$this->load->view('pages/admin-ui/user-management/add-user', $error);
 				$this->load->view('footer-copyright');
 				$this->load->view('template-parts/sidebar-control-admin');
 				$this->load->view('footer');
 	        } else {
 	            $data = array('upload_data' => $this->upload->data());
+
 	            $user = array(
 					'name' => $name,
 					'email' => $email,
@@ -74,7 +75,15 @@ class User extends CI_Controller {
 					'avatar_name' => $avatar
 				);
 				$this->db->insert('users', $user);
-				redirect('user/view_user');
+				// echo $this->db->_error_message();
+				// redirect('user/view_user');
+				$this->load->view('header');
+				$this->load->view('template-parts/header-admin');
+				$this->load->view('template-parts/sidebar-left-admin');
+				$this->load->view('pages/admin-ui/user-management/view-user', $data);
+				$this->load->view('footer-copyright');
+				$this->load->view('template-parts/sidebar-control-admin');
+				$this->load->view('footer');
 	    	}
 		}
 		
@@ -91,7 +100,7 @@ class User extends CI_Controller {
 			$this->db->where('id', $id);
 			$this->db->update('users', $updated_user);
 
-			redirect('user/view_user');
+			redirect('user/edit_user');
 		}
 	}
 

@@ -11,6 +11,11 @@
 <div class="box box-info">
     <!-- form start -->
     <?php
+      if(isset($error)) {
+        echo $error;
+      }
+    ?>
+    <?php
     	$attributes = array('class' => 'form-horizontal');
     	echo form_open_multipart('user/save_user', $attributes);
     ?>

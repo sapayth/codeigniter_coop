@@ -15,9 +15,10 @@
 				<div class="dataTables_wrapper form-inline dt-bootstrap">
 					<div class="row">
 						<div class="col-sm-12">
-							<table class="table table-bordered table-hover dataTable" role="grid">
+							<table class="table table-bordered table-hover dataTable table-edit-user" role="grid">
 								<thead>
 									<tr role="row">
+										<th></th>
 										<th>Name</th>
 										<th>Email</th>
 										<th>Role</th>
@@ -33,6 +34,8 @@
 										?>
 											<?php echo form_open('user/manage_user'); ?>
 											<tr role="row" class="odd">
+
+												<td><img src="http://localhost/codeigniter_ecommerce/assets/dist/img/avatars/<?php echo $user->avatar_name . ".jpg" ?>" alt=""></td>
 												<td><?php echo $user->name; ?></td>
 												<td><?php echo $user->email; ?></td>
 												<td>

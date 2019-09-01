@@ -1,4 +1,4 @@
-use db_scm;
+use db_ecommerce;
 
 drop table if exists user_role;
 create table user_role(
@@ -17,9 +17,9 @@ create table users(
 	role_id int(10),
 	avatar_name varchar(500)
 );
-insert into users(name, email, password, role_id) values('Sapayth Hossain', 'safayet.qubee@gmail.com', '12345', 1);
-insert into users(name, email, password, role_id) values('Waish Chowdhury', 'waish@gmail.com', '12345', 2);
-insert into users(name, email, password, role_id) values('Munna Ahsan', 'munna@gmail.com', '12345', 2);
+insert into users(name, email, password, role_id) values('Sapayth Hossain', 'safayet.qubee@gmail.com', '12345', 2);
+insert into users(name, email, password, role_id) values('Waish Chowdhury', 'waish@gmail.com', '12345', 1);
+insert into users(name, email, password, role_id) values('Munna Ahsan', 'munna@gmail.com', '12345', 1);
 
 drop table if exists suppliers;
 create table suppliers(
@@ -137,4 +137,4 @@ insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transac
 insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(1, 18, 1, 220, 3);
 insert into stock_transaction_details(item_id, qty, uom_id, price, stock_transaction_id) values(2, 9, 1, 215, 3);	
 
-select p.name 'Product name', b.name 'brand', c.name 'category', s.name 'supplier', u.name 'uom' from products p, brands b, product_category c, suppliers s, uom u where p.brand_id = b.id and p.supplier_id = s.id and p.category_id = c.id and p.uom_id = u.id;
+select p.name 'Product name', b.name 'brand', c.name 'category', s.name 'supplier', u.name 'uom' from products p, brands b, item_category c, suppliers s, uom u where p.brand_id = b.id and p.supplier_id = s.id and p.category_id = c.id and p.uom_id = u.id;

@@ -15,6 +15,11 @@
 				<div class="dataTables_wrapper form-inline dt-bootstrap">
 					<div class="row">
 						<div class="col-sm-12">
+							<ul>
+<?php foreach ($data as $item => $value):?>
+<li><?php echo $item;?>: <?php echo $value;?></li>
+<?php endforeach; ?>
+</ul>
 							<table class="table table-bordered table-hover dataTable" role="grid">
 								<thead>
 									<tr role="row">

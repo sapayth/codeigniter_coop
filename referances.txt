@@ -1,0 +1,12 @@
+http://shop.activeitzone.com
+admin@example.com
+123456
+
+http://shop.activeitzone.com/seller
+https://www.coolideamedia.com/ecommerce/admin/login.php
+admin@gmail.com
+1234
+
+http://demo.softwarezon.com/bitcommerce_v3/admin
+admin@gmail.com
+123456
