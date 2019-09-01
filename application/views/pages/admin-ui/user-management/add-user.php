@@ -62,8 +62,10 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">Upload Avatar</label>
             <div class="col-sm-9">
-              <input type="file" name="fileUserAvatar" size="200" />
+              <input type="file" name="fileUserAvatar" onchange="imagePreview(this);" size="200" accept="image/png, image/jpeg" />
             </div>
+            <br>
+            <div class="col-sm-9" id="avatar-img"></div>
           </div>
         </div>
       </div> <!-- end of box-body -->
@@ -78,3 +80,21 @@
 </section>
 <!-- /.content -->
 </div>
+<script>
+  // image preview in browser
+    var imagePreview = function(input) {
+        $("#avatar-img").empty();
+
+      if (input.files) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          $($.parseHTML('<img>'))
+          .attr('src', event.target.result)
+          .width(100)
+          .height(100)
+          .appendTo('#avatar-img');
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    };
+</script>

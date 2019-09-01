@@ -15,7 +15,7 @@ create table users(
 	email varchar(50) unique,
 	password varchar(50),
 	role_id int(10),
-	avatar_name varchar(500)
+	avatar_name varchar(500) default null
 );
 insert into users(name, email, password, role_id) values('Sapayth Hossain', 'safayet.qubee@gmail.com', '12345', 2);
 insert into users(name, email, password, role_id) values('Waish Chowdhury', 'waish@gmail.com', '12345', 1);
