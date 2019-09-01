@@ -35,7 +35,7 @@
 											<?php echo form_open('user/manage_user'); ?>
 											<tr role="row" class="odd">
 
-												<td><img src="http://localhost/codeigniter_ecommerce/assets/dist/img/avatars/<?php echo $user->avatar_name . ".jpg" ?>" alt=""></td>
+												<td class="user-img"><img src="<?php echo base_url(); ?>assets/img/avatars/<?php echo $user->avatar_name; ?>" alt=""></td>
 												<td><?php echo $user->name; ?></td>
 												<td><?php echo $user->email; ?></td>
 												<td>

@@ -15,14 +15,10 @@
 				<div class="dataTables_wrapper form-inline dt-bootstrap">
 					<div class="row">
 						<div class="col-sm-12">
-							<ul>
-<?php foreach ($data as $item => $value):?>
-<li><?php echo $item;?>: <?php echo $value;?></li>
-<?php endforeach; ?>
-</ul>
-							<table class="table table-bordered table-hover dataTable" role="grid">
+							<table class="table table-bordered table-hover dataTable table-view-user" role="grid">
 								<thead>
 									<tr role="row">
+										<th></th>
 										<th>Name</th>
 										<th>Email</th>
 										<th>Role</th>
@@ -36,6 +32,7 @@
 										foreach ($users_rs->result() as $user) :
 										?>
 											<tr role="row" class="odd">
+												<td class="user-img"><img src="<?php echo base_url(); ?>assets/img/avatars/<?php echo $user->avatar_name; ?>" alt=""></td>
 												<td><?php echo $user->name; ?></td>
 												<td><?php echo $user->email; ?></td>
 												<td>

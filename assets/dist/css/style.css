@@ -1,3 +1,13 @@
+.table-view-user img,
 .table-edit-user img {
     width: 50px;
+}
+td.user-img {
+	text-align: right;
+}
+div#avatar-img img {
+    width: 100%;
+}
+div#avatar-img {
+    width: 200px;
 }

@@ -47,7 +47,7 @@ class User extends CI_Controller {
 		if(isset($_POST["btnSave"])) {
 			$config['upload_path']          = './assets/img/avatars';
 	        $config['allowed_types']        = 'gif|jpg|png';
-	        $config['file_name']			= $avatar;
+	        $config['file_name']			= $name . '_' . time();
 
 	        // $config['max_size']             = 100;
 	        // $config['max_width']            = 1024;
@@ -72,7 +72,7 @@ class User extends CI_Controller {
 					'email' => $email,
 					'role_id' => $role_id,
 					'password' => $pass,
-					'avatar_name' => $avatar
+					'avatar_name' => $data['upload_data']['file_name']
 				);
 				$this->db->insert('users', $user);
 				// echo $this->db->_error_message();
@@ -90,16 +90,47 @@ class User extends CI_Controller {
 		if(isset($_POST["btnUpdateUser"])) {
 			$id = $this->input->post('hdnId');
 
-			$updated_user = array(
-				'name' => $name,
-				'email' => $email,
-				'role_id' => $role_id,
-				'password' => $pass,
-				'avatar_name' => $avatar
-			);
-			$this->db->where('id', $id);
-			$this->db->update('users', $updated_user);
+			if( isset($_FILES["fileUserAvatar"]) ) {
+				$config['upload_path']          = './assets/img/avatars';
+		        $config['allowed_types']        = 'gif|jpg|png';
+		        $config['file_name']			= $name . '_' . time();
 
+				$this->load->library('upload', $config);
+
+		        if ( ! $this->upload->do_upload('fileUserAvatar')) {
+		            $error = array('error' => $this->upload->display_errors());
+		            $this->load->view('header');
+					$this->load->view('template-parts/header-admin');
+					$this->load->view('template-parts/sidebar-left-admin');
+					$this->load->view('pages/admin-ui/user-management/edit-single-user', $error);
+					$this->load->view('footer-copyright');
+					$this->load->view('template-parts/sidebar-control-admin');
+					$this->load->view('footer');
+		        } else {
+		            $data = array('upload_data' => $this->upload->data());
+					$updated_user = array(
+						'name' => $name,
+						'email' => $email,
+						'role_id' => $role_id,
+						'password' => $pass,
+						'avatar_name' => $data['upload_data']['file_name']
+					);
+					$this->db->where('id', $id);
+					$this->db->update('users', $updated_user);
+		    	}
+		    	
+			} else {
+				$updated_user = array(
+					'name' => $name,
+					'email' => $email,
+					'role_id' => $role_id,
+					'password' => $pass
+				);
+				$this->db->where('id', $id);
+				$this->db->update('users', $updated_user);
+			}
+
+			
 			redirect('user/edit_user');
 		}
 	}

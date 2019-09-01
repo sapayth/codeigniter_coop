@@ -17,7 +17,7 @@
 			    	$attributes = array('class' => 'form-horizontal');
 			    	echo form_open_multipart('user/save_user', $attributes);
 			    ?>
-			      <div class="box-body">
+			    <div class="box-body">
 			      	<div class="col-md-8">
 			           <div class="form-group">
 			            <label class="col-sm-2 control-label">Name</label>
@@ -72,17 +72,24 @@
 			          <div class="form-group">
 			            <label class="col-sm-3 control-label">Upload Avatar</label>
 			            <div class="col-sm-9">
-			              <input type="file" name="fileUserAvatar" size="200" />
+			              <input type="file" name="fileUserAvatar" onchange="imagePreview(this);" size="200" accept="image/png, image/jpeg" />
 			            </div>
-			          </div>
+			            <br>
+			            <div class="col-sm-9" id="avatar-img">
+			            	<?php if($avatar != null) : ?>
+								<img src="<?php echo base_url(); ?>assets/img/avatars/<?php echo $avatar ?>" alt="">
+			            	<?php endif; ?>
+			            </div>
+			            </div>
 			        </div>
-			      </div> <!-- end of box-body -->
-			      <div class="box-footer">
+			        </div>
+			    </div> <!-- end of box-body -->
+			    <div class="box-footer">
 			        <?php
 			        	echo form_submit('btnUpdateUser', 'Update User', "class='btn btn-info'");
 			        ?>
-			      </div>
-			      <!-- /.box-footer -->
+		    	</div>
+			    <!-- /.box-footer -->
 			    <?php echo form_close(); ?>
 			</div> <!-- end of box-body -->
 		</div> <!-- end of box -->
@@ -90,3 +97,21 @@
 </section>
 <!-- /.content -->
 </div>
+<script>
+  // image preview in browser
+    var imagePreview = function(input) {
+    	$("#avatar-img").empty();
+
+        if (input.files) {
+			var reader = new FileReader();
+			reader.onload = function(event) {
+			  $($.parseHTML('<img>'))
+			  .attr('src', event.target.result)
+			  .width(100)
+			  .height(100)
+			  .appendTo('#avatar-img');
+			}
+			reader.readAsDataURL(input.files[0]);
+        }
+    };
+</script>
