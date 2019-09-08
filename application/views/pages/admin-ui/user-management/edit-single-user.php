@@ -64,6 +64,9 @@
 			            <label class="col-sm-2 control-label">Retype Password</label>
 			            <div class="col-sm-10">
 			            <input type="hidden" name="hdnId" value="<?php echo $user_id; ?>" />
+			            <?php if($avatar != null) : ?>
+							<input type="hidden" name="hdnAvatar" value="<?php echo $avatar; ?>" />
+		            	<?php endif; ?>			            
 			              <input type="password" name="pwdRePass" class="form-control" placeholder="Retype Password" />
 			            </div>
 			          </div>
@@ -77,7 +80,7 @@
 			            <br>
 			            <div class="col-sm-9" id="avatar-img">
 			            	<?php if($avatar != null) : ?>
-								<img src="<?php echo base_url(); ?>assets/img/avatars/<?php echo $avatar ?>" alt="">
+								<img src="<?php echo base_url(); ?>assets/img/avatars/<?php echo $avatar; ?>" alt="">
 			            	<?php endif; ?>
 			            </div>
 			            </div>
