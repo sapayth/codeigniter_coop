@@ -90,6 +90,10 @@ class User extends CI_Controller {
 		if(isset($_POST["btnUpdateUser"])) {
 			$id = $this->input->post('hdnId');
 
+			if(isset($_POST["hdnAvatar"])) {
+				$prev_avatar = $_POST["hdnAvatar"];
+			}
+
 			if( isset($_FILES["fileUserAvatar"]) ) {
 				$config['upload_path']          = './assets/img/avatars';
 		        $config['allowed_types']        = 'gif|jpg|png';
@@ -115,6 +119,11 @@ class User extends CI_Controller {
 						'password' => $pass,
 						'avatar_name' => $data['upload_data']['file_name']
 					);
+
+					// delete previous avatar
+					$prev_src = "./assets/img/avatars/" . $prev_avatar;
+					unlink($prev_src) or die("Couldn't delete previous image");
+
 					$this->db->where('id', $id);
 					$this->db->update('users', $updated_user);
 		    	}
@@ -126,11 +135,11 @@ class User extends CI_Controller {
 					'role_id' => $role_id,
 					'password' => $pass
 				);
+				
 				$this->db->where('id', $id);
 				$this->db->update('users', $updated_user);
-			}
+			}		
 
-			
 			redirect('user/edit_user');
 		}
 	}
