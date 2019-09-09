@@ -26,6 +26,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <?php include("submenu/submenu-dashboard.php"); ?>
+        <?php include("submenu/submenu-member-management.php"); ?>
         <?php include("submenu/submenu-user-management.php"); ?>
         <!-- <li class="treeview">
           <a href="#">
